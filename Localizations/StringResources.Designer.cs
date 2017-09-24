@@ -61,11 +61,38 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на О программе.
+        /// </summary>
+        public static string AboutProgram_Title {
+            get {
+                return ResourceManager.GetString("AboutProgram_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на PowerSupplyNotifier.
+        /// </summary>
+        public static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Устройство вывода:.
         /// </summary>
         public static string AudioDevice {
             get {
                 return ResourceManager.GetString("AudioDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лицензии компонентов.
+        /// </summary>
+        public static string ComponentLicenses {
+            get {
+                return ResourceManager.GetString("ComponentLicenses", resourceCulture);
             }
         }
         
@@ -84,6 +111,24 @@ namespace PowerSupplyNotifier.Localizations {
         public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сообщение.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уведомление.
+        /// </summary>
+        public static string Notification {
+            get {
+                return ResourceManager.GetString("Notification", resourceCulture);
             }
         }
         
@@ -115,11 +160,20 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Показать окно настроек.
+        ///   Ищет локализованную строку, похожую на Настройки.
         /// </summary>
-        public static string ShowSettingsWindow {
+        public static string Settings_Title {
             get {
-                return ResourceManager.GetString("ShowSettingsWindow", resourceCulture);
+                return ResourceManager.GetString("Settings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Звук.
+        /// </summary>
+        public static string Sound {
+            get {
+                return ResourceManager.GetString("Sound", resourceCulture);
             }
         }
         

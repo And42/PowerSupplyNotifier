@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using Microsoft.Win32;
 using NAudio.Wave;
@@ -18,11 +21,14 @@ namespace PowerSupplyNotifier.Windows
     {
         private static SettingsWindow Instance { get; set; }
 
+        private WaveOutCapabilities? _currentAudioDevice;
+
         public SettingsWindow()
         {
             InitializeComponent();
 
             FillAudioDevices();
+            SelectCurrentDevice();
         }
 
         private void FillAudioDevices()
@@ -30,13 +36,73 @@ namespace PowerSupplyNotifier.Windows
             if (AudioDevices.Count > 0)
                 AudioDevices.Clear();
             
-            var deviceCound = WaveOut.DeviceCount;
+            var deviceCount = WaveOut.DeviceCount;
 
-            for (int i = 0; i < deviceCound; i++)
+            for (int i = 0; i < deviceCount; i++)
                 AudioDevices.Add(WaveOut.GetCapabilities(i));
         }
 
+        private void SelectCurrentDevice()
+        {
+            var guid = Settings.Default.SoundOutputGuid;
+
+            if (guid != Guid.Empty)
+            {
+                var device = AudioDevices.FirstOrDefault(it => it.ProductGuid == guid);
+
+                if (device.ProductGuid != Guid.Empty)
+                    CurrentAudioDevice = device;
+                else
+                {
+                    Settings.Default.SoundOutputGuid = Guid.Empty;
+                    Settings.Default.Save();
+                }
+            }
+            else
+            {
+                CurrentAudioDevice = null;
+            }
+        }
+
         public ObservableCollection<WaveOutCapabilities> AudioDevices { get; } = new ObservableCollection<WaveOutCapabilities>();
+
+        public WaveOutCapabilities? CurrentAudioDevice
+        {
+            get => _currentAudioDevice;
+            set
+            {
+                if (SetProperty(ref _currentAudioDevice, value))
+                {
+                    Settings.Default.SoundOutputGuid = value?.ProductGuid ?? Guid.Empty;
+                    Settings.Default.Save();
+                }
+                
+            }
+        }
+
+        public bool SoundNotification
+        {
+            get => Settings.Default.SoundNotification;
+            set
+            {
+                Settings.Default.SoundNotification = value;
+                Settings.Default.Save();
+
+                OnPropertyChanged();
+            }
+        }
+
+        public bool MessageNotification
+        {
+            get => Settings.Default.MessageNotification;
+            set
+            {
+                Settings.Default.MessageNotification = value;
+                Settings.Default.Save();
+
+                OnPropertyChanged();
+            }
+        }
 
         public string SoundFile
         {
@@ -73,15 +139,6 @@ namespace PowerSupplyNotifier.Windows
             }
         }
 
-        public void PlaySound(int deviceNumber, string fileName)
-        {
-            var waveReader = new WaveFileReader(fileName);
-            var waveOut = new WaveOut {DeviceNumber = deviceNumber};
-
-            waveOut.Init(waveReader);
-            waveOut.Play();
-        }
-
         private void SettingsWindow_OnClosed(object sender, EventArgs e)
         {
             Instance = null;
@@ -101,12 +158,24 @@ namespace PowerSupplyNotifier.Windows
             }
         }
 
+        private bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(storage, value))
+                return false;
+
+            storage = value;
+
+            OnPropertyChanged(propertyName);
+
+            return true;
+        }
+
         #region PropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

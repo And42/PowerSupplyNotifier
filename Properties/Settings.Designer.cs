@@ -34,5 +34,53 @@ namespace PowerSupplyNotifier.Properties {
                 this["SoundFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid SoundOutputGuid {
+            get {
+                return ((global::System.Guid)(this["SoundOutputGuid"]));
+            }
+            set {
+                this["SoundOutputGuid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HaveToUpdateSettings {
+            get {
+                return ((bool)(this["HaveToUpdateSettings"]));
+            }
+            set {
+                this["HaveToUpdateSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SoundNotification {
+            get {
+                return ((bool)(this["SoundNotification"]));
+            }
+            set {
+                this["SoundNotification"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MessageNotification {
+            get {
+                return ((bool)(this["MessageNotification"]));
+            }
+            set {
+                this["MessageNotification"] = value;
+            }
+        }
     }
 }

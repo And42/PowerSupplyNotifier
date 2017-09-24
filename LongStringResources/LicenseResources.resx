@@ -117,52 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutProgram_Title" xml:space="preserve">
-    <value>О программе</value>
-  </data>
-  <data name="AppTitle" xml:space="preserve">
-    <value>PowerSupplyNotifier</value>
-  </data>
-  <data name="AudioDevice" xml:space="preserve">
-    <value>Устройство вывода:</value>
-  </data>
-  <data name="ComponentLicenses" xml:space="preserve">
-    <value>Лицензии компонентов</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Выход</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>Сообщение</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Уведомление</value>
-  </data>
-  <data name="PowerSupplyChangedToBattery" xml:space="preserve">
-    <value>Статус изменён на 'Питание от батареи'</value>
-  </data>
-  <data name="PowerSupplyChangedToNetwork" xml:space="preserve">
-    <value>Статус изменён на 'Питание от сети'</value>
-  </data>
-  <data name="PowerSupplyInformation" xml:space="preserve">
-    <value>Информация о питании</value>
-  </data>
-  <data name="Settings_Title" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="Sound" xml:space="preserve">
-    <value>Звук</value>
-  </data>
-  <data name="SoundFile" xml:space="preserve">
-    <value>Файл для воспроизведения:</value>
-  </data>
-  <data name="SoundFileNotFound" xml:space="preserve">
-    <value>Файл '{0}' не найдён!</value>
-  </data>
-  <data name="WavFilesFilter" xml:space="preserve">
-    <value>Файлы .wav|*.wav</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NAudio_License" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>NAudio_License.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

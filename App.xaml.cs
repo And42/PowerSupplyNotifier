@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using PowerSupplyNotifier.Code;
 using PowerSupplyNotifier.Localizations;
+using PowerSupplyNotifier.Properties;
 using PowerSupplyNotifier.Windows;
 
 using Application = System.Windows.Application;
@@ -21,6 +24,13 @@ namespace PowerSupplyNotifier
         {
             base.OnStartup(e);
 
+            if (Settings.Default.HaveToUpdateSettings)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.HaveToUpdateSettings = false;
+                Settings.Default.Save();
+            }
+
             NotifyIcon = new NotifyIcon();
 
             InitNotifyIcon(NotifyIcon);
@@ -29,8 +39,6 @@ namespace PowerSupplyNotifier
                 NotifyIcon.Icon = PowerSupplyNotifier.Properties.Resources.app_icon_battery;
 
             SystemEvents.PowerModeChanged += SystemEventsOnPowerModeChanged;
-
-            //new Windows.SettingsWindow().Show();
         }
 
         private void InitNotifyIcon(NotifyIcon icon)
@@ -42,7 +50,9 @@ namespace PowerSupplyNotifier
             {
                 Items =
                 {
-                    new ToolStripMenuItem(StringResources.ShowSettingsWindow, null, (_, __) => SettingsWindow.ShowUnique()),
+                    new ToolStripMenuItem(StringResources.Settings_Title, null, (_, __) => SettingsWindow.ShowUnique()),
+                    new ToolStripMenuItem(StringResources.AboutProgram_Title, null, (_, __) => AboutProgram.ShowUnique()),
+                    new ToolStripSeparator(),
                     new ToolStripMenuItem(StringResources.Exit, null, (_, __) => Shutdown(0))
                 }
             };
@@ -56,13 +66,27 @@ namespace PowerSupplyNotifier
                 {
                     NotifyIcon.Icon = PowerSupplyNotifier.Properties.Resources.app_icon_battery;
 
-                    MessageBox.Show(StringResources.PowerSupplyChangedToBattery, StringResources.PowerSupplyInformation, MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (Settings.Default.SoundNotification)
+                        PlaySoundIfCan();
+
+                    if (Settings.Default.MessageNotification)
+                    {
+                        MessageBox.Show(StringResources.PowerSupplyChangedToBattery,
+                            StringResources.PowerSupplyInformation, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 else if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Online)
                 {
                     NotifyIcon.Icon = PowerSupplyNotifier.Properties.Resources.app_icon;
 
-                    MessageBox.Show(StringResources.PowerSupplyChangedToNetwork, StringResources.PowerSupplyInformation, MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (Settings.Default.SoundNotification)
+                        PlaySoundIfCan();
+
+                    if (Settings.Default.MessageNotification)
+                    {
+                        MessageBox.Show(StringResources.PowerSupplyChangedToNetwork,
+                            StringResources.PowerSupplyInformation, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
             }
         }
@@ -72,6 +96,17 @@ namespace PowerSupplyNotifier
             SystemEvents.PowerModeChanged -= SystemEventsOnPowerModeChanged;
 
             NotifyIcon.Dispose();
+            Utils.Dispose();
+        }
+
+        private static void PlaySoundIfCan()
+        {
+            var (_, device) = Utils.GetDeviceByProductGuid(Settings.Default.SoundOutputGuid);
+
+            var soundFile = Settings.Default.SoundFile;
+
+            if (!string.IsNullOrEmpty(soundFile) && File.Exists(soundFile))
+                Utils.PlaySound(soundFile, device);
         }
     }
 }

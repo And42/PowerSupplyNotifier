@@ -88,6 +88,15 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Звук для питания от батареи:.
+        /// </summary>
+        public static string BatterySoundFile {
+            get {
+                return ResourceManager.GetString("BatterySoundFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Лицензии компонентов.
         /// </summary>
         public static string ComponentLicenses {
@@ -124,6 +133,15 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Звук для питания от сети:.
+        /// </summary>
+        public static string NetworkSoundFile {
+            get {
+                return ResourceManager.GetString("NetworkSoundFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Уведомление.
         /// </summary>
         public static string Notification {
@@ -133,7 +151,7 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Статус изменён на &apos;Питание от батареи&apos;.
+        ///   Ищет локализованную строку, похожую на Питание от батареи.
         /// </summary>
         public static string PowerSupplyChangedToBattery {
             get {
@@ -142,7 +160,7 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Статус изменён на &apos;Питание от сети&apos;.
+        ///   Ищет локализованную строку, похожую на Питание от сети.
         /// </summary>
         public static string PowerSupplyChangedToNetwork {
             get {
@@ -174,15 +192,6 @@ namespace PowerSupplyNotifier.Localizations {
         public static string Sound {
             get {
                 return ResourceManager.GetString("Sound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Файл для воспроизведения:.
-        /// </summary>
-        public static string SoundFile {
-            get {
-                return ResourceManager.GetString("SoundFile", resourceCulture);
             }
         }
         

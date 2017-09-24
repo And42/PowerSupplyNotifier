@@ -104,14 +104,14 @@ namespace PowerSupplyNotifier.Windows
             }
         }
 
-        public string SoundFile
+        public string BatterySoundFile
         {
-            get => Settings.Default.SoundFile;
+            get => Settings.Default.BatterySoundFile;
             set
             {
                 if (File.Exists(value))
                 {
-                    Settings.Default.SoundFile = value;
+                    Settings.Default.BatterySoundFile = value;
                     Settings.Default.Save();
                 }
                 else
@@ -122,7 +122,29 @@ namespace PowerSupplyNotifier.Windows
                     );
                 }
 
-                OnPropertyChanged(nameof(SoundFile));
+                OnPropertyChanged();
+            }
+        }
+
+        public string NetworkSoundFile
+        {
+            get => Settings.Default.NetworkSoundFile;
+            set
+            {
+                if (File.Exists(value))
+                {
+                    Settings.Default.NetworkSoundFile = value;
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    MessageBox.Show(
+                        string.Format(StringResources.SoundFileNotFound, value), StringResources.Error,
+                        MessageBoxButton.OK, MessageBoxImage.Warning
+                    );
+                }
+
+                OnPropertyChanged();
             }
         }
 
@@ -154,7 +176,10 @@ namespace PowerSupplyNotifier.Windows
 
             if (dialog.ShowDialog() == true)
             {
-                SoundFile = dialog.FileName;
+                if (((FrameworkElement) sender).Tag.Equals("Battery"))
+                    BatterySoundFile = dialog.FileName;
+                else
+                    NetworkSoundFile = dialog.FileName;
             }
         }
 

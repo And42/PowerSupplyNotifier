@@ -126,6 +126,9 @@
   <data name="AudioDevice" xml:space="preserve">
     <value>Устройство вывода:</value>
   </data>
+  <data name="BatterySoundFile" xml:space="preserve">
+    <value>Звук для питания от батареи:</value>
+  </data>
   <data name="ComponentLicenses" xml:space="preserve">
     <value>Лицензии компонентов</value>
   </data>
@@ -138,14 +141,17 @@
   <data name="Message" xml:space="preserve">
     <value>Сообщение</value>
   </data>
+  <data name="NetworkSoundFile" xml:space="preserve">
+    <value>Звук для питания от сети:</value>
+  </data>
   <data name="Notification" xml:space="preserve">
     <value>Уведомление</value>
   </data>
   <data name="PowerSupplyChangedToBattery" xml:space="preserve">
-    <value>Статус изменён на 'Питание от батареи'</value>
+    <value>Питание от батареи</value>
   </data>
   <data name="PowerSupplyChangedToNetwork" xml:space="preserve">
-    <value>Статус изменён на 'Питание от сети'</value>
+    <value>Питание от сети</value>
   </data>
   <data name="PowerSupplyInformation" xml:space="preserve">
     <value>Информация о питании</value>
@@ -155,9 +161,6 @@
   </data>
   <data name="Sound" xml:space="preserve">
     <value>Звук</value>
-  </data>
-  <data name="SoundFile" xml:space="preserve">
-    <value>Файл для воспроизведения:</value>
   </data>
   <data name="SoundFileNotFound" xml:space="preserve">
     <value>Файл '{0}' не найдён!</value>

@@ -26,12 +26,12 @@ namespace PowerSupplyNotifier.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SoundFile {
+        public string BatterySoundFile {
             get {
-                return ((string)(this["SoundFile"]));
+                return ((string)(this["BatterySoundFile"]));
             }
             set {
-                this["SoundFile"] = value;
+                this["BatterySoundFile"] = value;
             }
         }
         
@@ -80,6 +80,18 @@ namespace PowerSupplyNotifier.Properties {
             }
             set {
                 this["MessageNotification"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NetworkSoundFile {
+            get {
+                return ((string)(this["NetworkSoundFile"]));
+            }
+            set {
+                this["NetworkSoundFile"] = value;
             }
         }
     }

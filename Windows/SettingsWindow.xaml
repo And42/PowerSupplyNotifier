@@ -1,8 +1,12 @@
-﻿<Window x:Class="PowerSupplyNotifier.Windows.SettingsWindow"
+﻿<!-- ReSharper disable Xaml.IndexOutOfGridDefinition -->
+    
+<Window x:Class="PowerSupplyNotifier.Windows.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:localizations="clr-namespace:PowerSupplyNotifier.Localizations"
         xmlns:wave="clr-namespace:NAudio.Wave;assembly=NAudio"
+        xmlns:attachedProperties="clr-namespace:PowerSupplyNotifier.Code.AttachedProperties"
+        xmlns:validationRules="clr-namespace:PowerSupplyNotifier.Code.ValidationRules"
         Title="{x:Static localizations:StringResources.Settings_Title}" 
         Width="525"
         WindowStartupLocation="CenterScreen"
@@ -14,27 +18,24 @@
         Closed="SettingsWindow_OnClosed"
         
         SizeToContent="Height">
-    <Grid Margin="5">
+    <Grid 
+            Margin="5"
+            attachedProperties:GridAP.Rows="A,5,A,5,A,5,A,5,A,5,A">
         <Grid.Resources>
             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="5,0"/>
+            </Style>
+            
+            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
 
             <DataTemplate x:Key="AudioDeviceTemplate" DataType="wave:WaveOutCapabilities">
                 <TextBlock Text="{Binding ProductName}"/>
             </DataTemplate>
         </Grid.Resources>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -67,9 +68,26 @@
             <TextBox Margin="0,0,5,0" Text="{Binding NetworkSoundFile}"/>
             <Button Grid.Column="1" Content="..." Padding="5,0" Click="ChooseSoundFile_OnClick" Tag="Network"/>
         </Grid>
+        
+        <TextBlock Grid.Row="6" Text="{x:Static localizations:StringResources.BatteryLevelsNotification}"/>
+        <TextBox Grid.Row="6" Grid.Column="1">
+            <TextBox.Text>
+                <Binding Path="LowerLevelsNotification">
+                    <Binding.ValidationRules>
+                        <validationRules:LowerLevelsFieldRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+        <CheckBox 
+            Grid.Row="8" Grid.ColumnSpan="2" 
+            Margin="5,0"
+            IsChecked="{Binding FullyChargedNotification}" 
+            Content="{x:Static localizations:StringResources.FullyChargedNotification}"/>
 
         <GroupBox 
-                Grid.Row="6" Grid.ColumnSpan="2"
+                Grid.Row="10" Grid.ColumnSpan="2"
                 Header="{x:Static localizations:StringResources.Notification}"
                 Padding="0,2,0,0">
             <Grid>
@@ -78,8 +96,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
-                <CheckBox Content="{x:Static localizations:StringResources.Sound}" IsChecked="{Binding SoundNotification}" VerticalContentAlignment="Center"/>
-                <CheckBox Content="{x:Static localizations:StringResources.Message}" IsChecked="{Binding MessageNotification}" Grid.Column="1" VerticalContentAlignment="Center"/>
+                <CheckBox Content="{x:Static localizations:StringResources.Sound}" IsChecked="{Binding SoundNotification}"/>
+                <CheckBox Content="{x:Static localizations:StringResources.Message}" IsChecked="{Binding MessageNotification}" Grid.Column="1"/>
             </Grid>
         </GroupBox>
     </Grid>

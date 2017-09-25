@@ -148,6 +148,30 @@ namespace PowerSupplyNotifier.Windows
             }
         }
 
+        public string LowerLevelsNotification
+        {
+            get => Settings.Default.LowerLevelsNotification;
+            set
+            {
+                Settings.Default.LowerLevelsNotification = value;
+                Settings.Default.Save();
+
+                OnPropertyChanged();
+            }
+        }
+
+        public bool FullyChargedNotification
+        {
+            get => Settings.Default.FullyChargedNotification;
+            set
+            {
+                Settings.Default.FullyChargedNotification = value;
+                Settings.Default.Save();
+
+                OnPropertyChanged();
+            }
+        }
+
         public static void ShowUnique()
         {
             if (Instance == null)

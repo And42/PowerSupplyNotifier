@@ -126,6 +126,12 @@
   <data name="AudioDevice" xml:space="preserve">
     <value>Устройство вывода:</value>
   </data>
+  <data name="BatteryLevelsNotification" xml:space="preserve">
+    <value>Уровни заряда для оповещения:</value>
+  </data>
+  <data name="BatteryLifeRemaining" xml:space="preserve">
+    <value>Осталость заряда: {0}%</value>
+  </data>
   <data name="BatterySoundFile" xml:space="preserve">
     <value>Звук для питания от батареи:</value>
   </data>
@@ -137,6 +143,12 @@
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Выход</value>
+  </data>
+  <data name="FullyCharged" xml:space="preserve">
+    <value>Батарея полностью заряжена</value>
+  </data>
+  <data name="FullyChargedNotification" xml:space="preserve">
+    <value>Уведомление о полном заряде</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Сообщение</value>

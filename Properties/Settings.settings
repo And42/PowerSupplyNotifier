@@ -15,10 +15,16 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="MessageNotification" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="NetworkSoundFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LowerLevelsNotification" Type="System.String" Scope="User">
+      <Value Profile="(Default)">75,50,25</Value>
+    </Setting>
+    <Setting Name="FullyChargedNotification" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

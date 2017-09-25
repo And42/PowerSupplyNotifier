@@ -76,9 +76,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Code\AttachedProperties\GridAP.cs" />
     <Compile Include="Code\ComponentLicense.cs" />
     <Compile Include="Code\RuntimeAttributes.cs" />
     <Compile Include="Code\Utils.cs" />
+    <Compile Include="Code\ValidationRules\LowerLevelsFieldRule.cs" />
     <Compile Include="Localizations\StringResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

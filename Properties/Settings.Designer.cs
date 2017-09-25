@@ -73,7 +73,7 @@ namespace PowerSupplyNotifier.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool MessageNotification {
             get {
                 return ((bool)(this["MessageNotification"]));
@@ -92,6 +92,30 @@ namespace PowerSupplyNotifier.Properties {
             }
             set {
                 this["NetworkSoundFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("75,50,25")]
+        public string LowerLevelsNotification {
+            get {
+                return ((string)(this["LowerLevelsNotification"]));
+            }
+            set {
+                this["LowerLevelsNotification"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FullyChargedNotification {
+            get {
+                return ((bool)(this["FullyChargedNotification"]));
+            }
+            set {
+                this["FullyChargedNotification"] = value;
             }
         }
     }

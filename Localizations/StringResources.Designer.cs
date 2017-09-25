@@ -88,6 +88,24 @@ namespace PowerSupplyNotifier.Localizations {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Уровни заряда для оповещения:.
+        /// </summary>
+        public static string BatteryLevelsNotification {
+            get {
+                return ResourceManager.GetString("BatteryLevelsNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Осталость заряда: {0}%.
+        /// </summary>
+        public static string BatteryLifeRemaining {
+            get {
+                return ResourceManager.GetString("BatteryLifeRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Звук для питания от батареи:.
         /// </summary>
         public static string BatterySoundFile {
@@ -120,6 +138,24 @@ namespace PowerSupplyNotifier.Localizations {
         public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Батарея полностью заряжена.
+        /// </summary>
+        public static string FullyCharged {
+            get {
+                return ResourceManager.GetString("FullyCharged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уведомление о полном заряде.
+        /// </summary>
+        public static string FullyChargedNotification {
+            get {
+                return ResourceManager.GetString("FullyChargedNotification", resourceCulture);
             }
         }
         

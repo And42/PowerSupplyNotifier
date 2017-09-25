@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -9,6 +11,7 @@ using PowerSupplyNotifier.Windows;
 
 using Application = System.Windows.Application;
 using PowerLineStatus = System.Windows.Forms.PowerLineStatus;
+using Timer = System.Threading.Timer;
 
 namespace PowerSupplyNotifier
 {
@@ -21,6 +24,9 @@ namespace PowerSupplyNotifier
 
         private PowerLineStatus _previous = PowerLineStatus.Unknown;
 
+        private Timer _timer;
+        private int _batteryPercentage;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -32,6 +38,8 @@ namespace PowerSupplyNotifier
                 Settings.Default.Save();
             }
 
+            _batteryPercentage = GetPowerPercentage();
+
             NotifyIcon = new NotifyIcon();
 
             InitNotifyIcon(NotifyIcon);
@@ -40,14 +48,46 @@ namespace PowerSupplyNotifier
                 NotifyIcon.Icon = PowerSupplyNotifier.Properties.Resources.app_icon_battery;
 
             SystemEvents.PowerModeChanged += SystemEventsOnPowerModeChanged;
+
+            _timer = new Timer(_ => OnBatteryPowerCheck(), null, TimeSpan.FromSeconds(1), TimeSpan.FromMinutes(1));
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
             SystemEvents.PowerModeChanged -= SystemEventsOnPowerModeChanged;
 
+            _timer.Dispose();
+            _timer = null;
+
             NotifyIcon.Dispose();
+            NotifyIcon = null;
+
             Utils.Dispose();
+        }
+
+        private void OnBatteryPowerCheck()
+        {
+            int currentPercentage = GetPowerPercentage();
+
+            if (Settings.Default.MessageNotification)
+            {
+                if (currentPercentage > _batteryPercentage)
+                {
+                    if (currentPercentage == 100 && Settings.Default.FullyChargedNotification)
+                        ShowMessage(StringResources.FullyCharged);
+                }
+                else if (currentPercentage < _batteryPercentage)
+                {
+                    var split = (Settings.Default.LowerLevelsNotification ?? "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+
+                    int[] batteryMessageLevels = split.Select(it => int.Parse(it.Trim())).ToArray();
+
+                    if (batteryMessageLevels.Contains(currentPercentage))
+                        ShowMessage(string.Format(StringResources.BatteryLifeRemaining, currentPercentage));
+                }
+            }
+
+            _batteryPercentage = currentPercentage;
         }
 
         private void SystemEventsOnPowerModeChanged(object sender, PowerModeChangedEventArgs args)
@@ -115,6 +155,11 @@ namespace PowerSupplyNotifier
 
             if (File.Exists(soundFile))
                 Utils.PlaySound(soundFile, device);
+        }
+
+        private static int GetPowerPercentage()
+        {
+            return (int) Math.Round(SystemInformation.PowerStatus.BatteryLifePercent * 100);
         }
 
         private void ShowMessage(string message)

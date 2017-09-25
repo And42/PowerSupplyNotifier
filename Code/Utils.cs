@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Media.Animation;
 using NAudio.Wave;
 
 namespace PowerSupplyNotifier.Code
